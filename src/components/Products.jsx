@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaTshirt } from "react-icons/fa";
 import { AiFillShopping } from "react-icons/ai";
+import ProductContext from "../ProductContext";
 
 const Products = () => {
+    const { addProduct } = useContext(ProductContext);
     const items = [
         {
             title: "tshirt",
@@ -38,6 +40,10 @@ const Products = () => {
         },
     ];
 
+    const handleAdd = (title, price) => {
+        addProduct(title, price);
+    };
+
     return (
         <div className="Products-Cont my-0 mx-auto max-w-5xl py-8 px-3">
             <div className="Products-Grid grid grid-cols-4 gap-6">
@@ -55,7 +61,12 @@ const Products = () => {
                                     <h3>{item?.title}</h3>
                                     <p>{item?.price}</p>
                                 </div>
-                                <AiFillShopping className="cursor-pointer" />
+                                <AiFillShopping
+                                    className="cursor-pointer"
+                                    onClick={() =>
+                                        handleAdd(item?.title, item?.price)
+                                    }
+                                />
                             </div>
                         </article>
                     );
